@@ -6,7 +6,7 @@ class Game: public olc::PixelGameEngine
 private:
     olc::Sprite olcPGELogo;
     olc::Decal *olcPGEDecal;
-    float creditScreenTime = 0, creditScreenDuration = 1.5;
+    float creditScreenTime = 0, creditScreenDuration = 2.5;
 protected:
     bool OnUserCreate() override
     {
@@ -18,12 +18,12 @@ protected:
 
     bool OnUserUpdate(float deltaTime) override
     {
-        Clear(0xFF404040);
+        Clear(olc::BLACK);
         if (creditScreenTime < creditScreenDuration)
         {
             DrawDecal({ (ScreenWidth() - olcPGELogo.width * 0.75f) / 2.0f, (ScreenHeight() - olcPGELogo.height * 0.75f) / 2.0f, }, olcPGEDecal, { 0.75f, 0.75f });
 
-            //creditScreenTime += deltaTime;
+            creditScreenTime += deltaTime;
         }
 
         return !GetKey(olc::ESCAPE).bReleased;
@@ -33,6 +33,6 @@ protected:
 int main()
 {
     Game game;
-    if (game.Construct(800, 600, 1, 1))
+    if (game.Construct(800, 600, 1, 1, true))
         game.Start();
 }
